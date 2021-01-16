@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html id="html">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">
+           *{
+               margin : 0;
+               padding : 0;
+           }
+           #wrap{
+               width: 200px;
+               height: 200px;
+               background: pink;
+           }
+        </style>
+    </head>
+    <body id="body">
+        <div id="wrap">
+            <!-- <div id= "inner"> inner </div> -->
+        </div>
+    </body>
+    <script type="text/javascript">
+       var wrap = document.querySelector("#wrap");
+       /*
+        事件流分三个阶段：捕获，目标处理，冒泡
+            捕获，冒泡的前提：有嵌套的dom结构
+            如果存在这个结构，才会绑定
+            addEvnetListener 和 attachEvent 一个正序，一个倒叙
+            DOM2 和 DOM 3 以及其他的区别：
+            DOM2 : 
+                ie：obj.attachEvent (事件名称， 事件函数)；
+                    1. 没有捕获（非标准的IE; 标准的IE底下有捕获 ie6到 ie10）
+                    2. 事件名称有on
+                    3. 事件函数执行的顺序： 标准ie-》》 正序 非标准ie -》》 倒序
+                    4. this指向window
+       */
+       if (wrap.addEventListener){
+           wrap.addEventListener("click",function(){
+            console.log(1);
+        });
+       }else{
+           wrap.attachEvent("onclick",function(){
+             console.log(1);
+           });
+           wrap.attachEvent("onclick",function(){
+             console.log(2);
+           });
+           wrap.attachEvent("onclick",function(){
+             console.log(3);
+           });
+        }
+    </script>
+</html>
