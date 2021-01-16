@@ -25,7 +25,7 @@
         </style>
     </head>
     <body id="body">
-            <canvas width="400" height="400"></canvas>
+            <canvas width="200" height="500"></canvas>
     </body>
 
     <script type="text/javascript">
@@ -54,14 +54,17 @@
                 var arr = [];
                 setInterval(function(){
                     console.log(arr);
-                    // 在绘画之前，对数组arr内部的参数值进行改变，以达到放大和消失的效果
+                    // 在绘画之前，对数组arr内部的参数值进行改变，以达到运动的效果
                     ctx.clearRect(0,0,oc.width,oc.height);
                     for(var i =0;i<arr.length;i++){
-                        if (arr[i].alp<0){
-                            arr.splice(i,1);
+                        arr[i].degree++;
+                        arr[i].x = arr[i].startX + Math.sin(arr[i].degree* Math.PI/180)*arr[i].step*2;
+                        arr[i].y = arr[i].startY - (arr[i].degree* Math.PI/180)*arr[i].step*5;
+                        console.log(arr[i].y);
+                        if (arr[i].y <= arr[i].r){
+                            arr.splice(i,1); 
                         }
-                        arr[i].r++;
-                        arr[i].alp-=0.01;
+                        arr[i].alp-=0.001;
                     }
                     //对已经更改好的数组对应的圆进行绘画。
                     for (var i = 0; i<arr.length; i++){
@@ -76,12 +79,16 @@
                 // 在arr中注入随机圆信息
                 setInterval(function(){
                     var x = Math.random()*oc.width;
-                    var y = Math.random()*oc.height;
-                    var r = 10;
+                    var r = Math.random()*10+5;
+                    var y = oc.height -r ;
                     var red = Math.round(Math.random()*255);
                     var green = Math.round(Math.random()*255);
                     var blue = Math.round(Math.random()*255);
                     var alp = 1;
+                    var degree = 0;
+                    var startX = x;
+                    var startY = y;
+                    var step = 10;
                     arr.push({
                         x: x,
                         y: y,
@@ -89,9 +96,13 @@
                         red: red,
                         green: green,
                         blue: blue,
-                        alp : alp
+                        alp : alp,
+                        degree : degree,
+                        startX: startX,
+                        startY: startY,
+                        step: step
                     });
-                },100)
+                },200)
             }
 
         }
