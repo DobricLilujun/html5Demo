@@ -14,12 +14,16 @@
            #wrap{
                width: 200px;
                height: 200px;
+
+            /* 定义居中*/
                position: absolute;
                left : 0;
                right : 0;
                top : 0;
                bottom : 0;
                margin : auto;
+            /* 定义居中*/
+
                background: pink;
 
            }
@@ -30,8 +34,13 @@
             
         </div>
     </body>
-
+    
     <script type="text/javascript">
+    /*
+        滚轮事件 火狐有问题
+        对于火狐要单独处理
+        // 对于火狐浏览器 使用 onmouseWheel
+       */
        window.onload = function(){
 
         var tnode  = document.querySelector("#wrap");

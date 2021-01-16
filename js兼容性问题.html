@@ -24,7 +24,7 @@
        var wrap = document.querySelector("#wrap");
        /*
         事件流分三个阶段：捕获，目标处理，冒泡
-            捕获，冒泡的前提：有嵌套的dom结构
+            捕获，冒泡的前提：必须有嵌套的dom结构
             如果存在这个结构，才会绑定
             addEvnetListener 和 attachEvent 一个正序，一个倒叙
             DOM2 和 DOM 3 以及其他的区别：
@@ -33,7 +33,12 @@
                     1. 没有捕获（非标准的IE; 标准的IE底下有捕获 ie6到 ie10）
                     2. 事件名称有on
                     3. 事件函数执行的顺序： 标准ie-》》 正序 非标准ie -》》 倒序
-                    4. this指向window
+                    4. this指向window 
+                其它标准的浏览器： obj.addEventListener(事件名称，事件函数，是否捕获)；
+                    1. 有捕获
+                    2. 事件名称没有on
+                    3. 时间执行的顺序是正序
+                    4. this触发该事件的对象
        */
        if (wrap.addEventListener){
            wrap.addEventListener("click",function(){

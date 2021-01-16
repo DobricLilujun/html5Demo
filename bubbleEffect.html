@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html id="html">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="script/client.js"></script>
+        <script type="text/javascript" src="script/EventUtils.js"></script>
+        <script type="text/javascript" src="script/EventTarget.js"></script>
+        <style type="text/css">
+            *{
+                margin : 0;
+                padding : 0;
+                background: pink;
+            }
+            body{
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom : 0;
+                margin: auto;
+                text-align: center;
+                background: white;
+            }
+        </style>
+    </head>
+    <body id="body">
+            <canvas width="400" height="400"></canvas>
+    </body>
+
+    <script type="text/javascript">
+        // 画 矩形 移动动画
+        // window.onload = function(){
+        //     var oc = document.querySelector("canvas");
+        //         if (oc.getContext){
+        //             var ctx = oc.getContext("2d");
+        //             var flag = 0;
+        //             setInterval(function(){
+        //                 ctx.clearRect(0,0,oc.width,oc.height);
+                        
+        //                 flag++;
+        //                 ctx.save();
+        //                 ctx.beginPath();
+        //                 ctx.strokeRect(flag,flag,100,100);
+        //                 ctx.restore();
+        //             },1000/60);
+        //         }
+        //     }
+        // 画阳光下的泡沫 
+        window.onload = function(){
+            var oc = document.querySelector("canvas");
+            if (oc.getContext){
+                var ctx = oc.getContext("2d");
+                var arr = [];
+               
+                setInterval(function(){
+                    ctx.clearRect(0,0,oc.width,oc.height);
+                    for (var i = 0; i<arr.length; i++){
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.arc(arr[i].x,arr[i].y,arr[i].r,0,2*Math.PI);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                });
+
+                setInterval(function(){
+                    var x = Math.random()*oc.width;
+                    var y = Math.random()*oc.height;
+                    var r = 10;
+
+                    arr.push({
+                        x: x,
+                        y: y,
+                        r: r
+                    })
+                },500)
+            }
+
+        }
+    </script>
+</html>
