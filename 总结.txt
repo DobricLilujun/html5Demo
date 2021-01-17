@@ -1,0 +1,81 @@
+1. Dom 关于位置和尺寸的API
+    parentNode
+        直接父级
+    offsetParent
+        a.有点类似于css中包含块(css中的概念)
+        b.offsetLeft 和 offsetTop都是参照于offsetParent的内边距边界
+        c.规则
+                本身定位为Fixed，不管父级别有没有定位
+                    火狐的offsetParent --> body
+                    非火狐offsetParent --> null
+                非fixed
+                    父级没有定位
+                        offsetParent --> body
+                    父级有定位
+                        offsetParent --> 定位父级
+2. js 的兼容性问题
+    ev|| event
+    offsetParent
+    事件绑定（事件流的机制，事件委托）
+    鼠标事件
+        非火狐： onmousewheel(dom0)
+                ev.wheeldelta
+                    下是负值
+                    上是正值
+        火狐  ： DOMMouseScroll(dom2)
+                ev.detail
+                    上是负值
+                    下是正值
+        怎么取消时间的默认行为：
+                dom0: return false
+                dom2: ev.preventDefault()
+    视口尺寸的获取
+
+3. 绝对位置，相对位置
+    绝对位置是到body的距离 （html和body之间的margin被清楚）
+        原生实现： 通过while循环不断的去累加，当null时跳出循环
+                  body 的 offsetParent -->> null
+                  body 的 offsetLeft  -->> 0
+                  body 的 offsetTop   -->> 0
+                  原生实现的缺点： 没有办法兼容 border 和margin
+    相对位置： 到视口的距离
+        原生实现： 绝对位置的实现上减去滚动条滚动的距离
+                                    （滚动条滚动时元素滚动的距离）
+                                    document.documentElement.scrollLeft||document.body.scrollLeft;
+                  原生实现的缺点： 没有办法兼容 border和margin
+    Node->12个(Document, element, attribute, text, html document, html element)
+                                    
+4. getBoundingClientRect(兼容性非常好)
+    返回值：对象
+            {
+                width : border-box 的宽
+                height：border-box 的高
+                // 元素border-box 的左上角的相对位置
+                top   : 
+                left  :
+                // 元素border-box 的右下角的相对位置
+                bottom:
+                right :
+                x     :
+                y     : 
+            }
+5. clientWidth/Height, offsetWidth/ Height:
+     clientWidth/Height: 可视区（padding box）
+     offsetWidth/Height： border-box
+
+6. 怎么获取视口的尺寸
+     document.documentElement.clientWidth; 
+
+7. 曲线运动：
+     三角函数凸显， 将三角函数应用到js
+8. 结合canvas 实现气泡效果：
+     第二个循环定时器：
+        维护一个数组（随机圆的信息）
+            圆心
+            半径
+            rgba值
+            初始位置
+    
+    第一个循环定时器：
+        在canvas 上实现动画
+            第一个for循环
